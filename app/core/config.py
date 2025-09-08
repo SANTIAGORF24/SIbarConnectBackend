@@ -11,6 +11,9 @@ load_dotenv()
 class Settings(BaseSettings):
     app_name: str = os.getenv("APP_NAME")
     app_version: str = os.getenv("APP_VERSION")
+    SECRET_KEY: str = os.getenv("SECRET_KEY")
+    ALGORITHM: str = os.getenv("ALGORITHM")
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")
 
     #Datos de la bd
     BD_USER: str = os.getenv("DB_USER")

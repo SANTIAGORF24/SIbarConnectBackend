@@ -1,21 +1,69 @@
-# Environment variables
+# ================================
+# ARCHIVOS DE CONFIGURACIÓN SENSIBLES
+# ================================
+# Variables de entorno (NUNCA subir al repo)
 .env
+.env.*
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.staging
 
-# Python cache files
-__pycache__/
-*.py[cod]
-*$py.class
+# Archivos de configuración con credenciales
+config.ini
+secrets.json
+credentials.json
+*.pem
+*.key
+*.crt
+*.p12
 
-# Virtual environment
+# ================================
+# ENTORNOS VIRTUALES PYTHON
+# ================================
+# Directorios de entornos virtuales (NUNCA subir)
 venv/
 env/
 ENV/
+.venv/
+.ENV/
+.virtualenv/
+virtualenv/
+venv*/
+env*/
 
-# Instance folder
-instance/
+# Conda environments
+.conda/
+conda-meta/
+envs/
 
-# Distribution / packaging
+# Poetry
+poetry.lock
+
+# Pipenv
+Pipfile.lock
+
+# ================================
+# ARCHIVOS PYTHON COMPILADOS
+# ================================
+# Bytecode Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+*.pyd
+
+# Python cache
 .Python
+
+# ================================
+# EMPAQUETADO Y DISTRIBUCIÓN
+# ================================
 build/
 develop-eggs/
 dist/
@@ -31,48 +79,211 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # PyInstaller
 *.manifest
 *.spec
 
+# ================================
+# TESTING Y COVERAGE
+# ================================
 # Unit test / coverage reports
 htmlcov/
 .tox/
+.nox/
 .coverage
 .coverage.*
 .cache
 nosetests.xml
 coverage.xml
 *.cover
+*.py,cover
 .hypothesis/
 .pytest_cache/
+cover/
 
-# Jupyter Notebook
+# ================================
+# JUPYTER NOTEBOOK
+# ================================
 .ipynb_checkpoints
+*/.ipynb_checkpoints/*
 
-# pyenv
-.python-version
+# ================================
+# BASES DE DATOS
+# ================================
+# SQLite databases
+*.db
+*.sqlite
+*.sqlite3
 
-# Environments
-.venv
-.ENV
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+# PostgreSQL dumps
+*.sql
+*.dump
 
-# IDEs
-.vscode/
-.idea/
+# Database logs
+postgresql.log
+mysql.log
+
+# ================================
+# LOGS Y ARCHIVOS TEMPORALES
+# ================================
+# Logs
+logs/
+*.log
+log/
+*.out
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.temp
 *.swp
 *.swo
+*~
 
-# OS generated files
+# ================================
+# IDEs Y EDITORES
+# ================================
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# ================================
+# SISTEMAS OPERATIVOS
+# ================================
+# macOS
 .DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100
 .Trashes
-ehthumbs.db
+.AppleDouble
+.LSOverride
+
+# Windows
 Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+*.stackdump
+[Dd]esktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# ================================
+# HERRAMIENTAS DE DESARROLLO
+# ================================
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# poetry
+poetry.lock
+
+# PDM
+.pdm.toml
+
+# ================================
+# DOCKER
+# ================================
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# ================================
+# FASTAPI/UVICORN ESPECÍFICOS
+# ================================
+# Uvicorn logs
+uvicorn.log
+
+# FastAPI static files (si se generan)
+static/
+
+# Alembic (migrations)
+# Descomenta la siguiente línea si quieres ignorar las migraciones
+# alembic/versions/
+
+# ================================
+# ARCHIVOS DE RESPALDO Y TEMPORALES
+# ================================
+# Backups
+*.bak
+*.backup
+*.old
+*.orig
+
+# Archive files
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# ================================
+# MONITOREO Y MÉTRICAS
+# ================================
+# Performance monitoring
+.prof
+*.prof
+
+# Memory dumps
+*.hprof
+*.dump
+
+# ================================
+# OTROS ARCHIVOS COMUNES
+# ================================
+# Node.js (si usas herramientas JS)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Lock files
+package-lock.json
+yarn.lock
+
+# Instance folder
+instance/
+
+# Local uploads (si tienes funcionalidad de upload)
+uploads/
+media/

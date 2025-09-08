@@ -5,76 +5,40 @@ from utils.security import hash_password
 from models.users import user as models
 from schemas.user import user as schemas
 from sqlalchemy import select
+from services.users import users as servicesuser
 
 router = APIRouter(
     prefix="/user",
     tags=["users"]
 )
 
-
-#ruta para crear el usuario 
-#creamos la ruta con metodo post para mandar datos, la repsuesta se va a conertie en el esquea userOut, y si es todo correcto va a devovler el staus code 201
 @router.post("/create", response_model= schemas.UserOut, status_code=status.HTTP_201_CREATED) 
-#usamos una funcion asincrona ya que esto permite hacer diversas solcicitudes al backned
-#vamos a usar el esqema de crear usuarios, y aparter recibe de dbuser, la sesion asincrona para poder conectarse
 async def create_user(user: schemas.UserCreate, db: AsyncSession = Depends(get_db)):
-    
-    #1 VERIFICAR SI EL EMAIL EXISTE
-    
-    stmt = select(models.User).where(models.User.email == user.email)
-    result = await db.execute(stmt)
-    db_user = result.scalar_one_or_none()
-    if db_user: 
-        raise HTTPException(status_code=400, detail="email ya existe")   
-        
-    hash_pw = hash_password(user.password)
-
-    new_user = models.User (
-        fist_name_one = user.fist_name_one,
-        fist_name_two = user.fist_name_two,
-        last_name_one = user.last_name_one,
-        last_name_two = user.last_name_two,
-        email = user.email,
-        Password_hash = hash_pw
-
-    )
-
-    db.add(new_user)
-    await db.commit()
-    await db.refresh(new_user)  # para obtener el ID generado
-
-    # 5. Devolver el usuario (sin contraseña)
-    return new_user
-
-
-#ruta para obtener la informacion del usuario
+    return await servicesuser.create_user_in_bd(user, db)
 
 @router.get("/infouser/{user_id}", response_model=schemas.UserInfo, status_code=status.HTTP_200_OK)
 async def info_user(user_id: int, db: AsyncSession = Depends(get_db)):
-    result = await db.execute(
-        select(models.User).where(models.User.id == user_id)
+    return await servicesuser.consultar_usuario_por_id(user_id, db)
 
-    )
-    user_bd = result.scalar_one_or_none()
+@router.post("/infouser", response_model= schemas.UserInfo, status_code=status.HTTP_200_OK)
+async def info_user_mail(email_user: schemas.UserInfoName, db: AsyncSession = Depends(get_db)):
+    return await servicesuser.obtener_usuario_por_email(email_user, db)
 
+@router.delete("/deleteuser/{user_id}", status_code=status.HTTP_200_OK)
+async def delete_user(user_id: int, db: AsyncSession = Depends(get_db)):
+    return await servicesuser.eliminar_usuario_por_id(user_id, db)
 
-    # Manejo de error por si el usuario no se encontro
-    if user_bd is None:
-        raise HTTPException(status_code=404, detail="Usuario no encontrado")
-    
+@router.delete("/deleteuserforemail", status_code=status.HTTP_200_OK)
+async def delete_user_for_email(
+    request: schemas.DeleteUserForEmail,
+    db: AsyncSession = Depends(get_db)
+):
+    return await servicesuser.eliminar_usuario_por_email(request, db)
 
-    #Armamos el full name desde la instancia de la bd
-    fullname = " ".join(filter(None, [
-        getattr(user_bd, "fist_name_one", None),
-        getattr(user_bd, "fist_name_two", None),
-        getattr(user_bd, "last_name_one", None),
-        getattr(user_bd, "last_name_two", None)
-    ]))
-
-    #devolvemos el esquema
-    return schemas.UserInfo(
-        id = user_bd.id,
-        email = user_bd.email,
-        fullname = fullname
-    )
-
+@router.put("/updateput/{user_id}", response_model= schemas.UpdateUserPutOut, status_code=status.HTTP_200_OK)
+async def Update_user_put(
+    user_id: int,
+    user_data: schemas.UpdateUserPut,
+    db: AsyncSession = Depends(get_db)
+):
+    return await servicesuser.actualizar_usuario_put(user_id, user_data, db)

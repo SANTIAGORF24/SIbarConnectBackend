@@ -5,8 +5,8 @@ from typing import Optional
 
 
 class UserCreate(BaseModel):
-    fist_name_one: str
-    fist_name_two: Optional[str] = None
+    first_name_one: str
+    first_name_two: Optional[str] = None
     last_name_one: str
     last_name_two: str
     email: EmailStr
@@ -24,3 +24,27 @@ class UserInfo(BaseModel):
     id: int
     email: EmailStr
     fullname: str
+
+
+class UserInfoName (BaseModel):
+    email : EmailStr   
+
+
+class DeleteUserForEmail(BaseModel):
+    email : EmailStr   
+
+class UpdateUserPut(BaseModel):
+    first_name_one: str
+    first_name_two: Optional[str] = None
+    last_name_one: str
+    last_name_two: str
+    email: EmailStr
+
+
+
+class UpdateUserPutOut(BaseModel):
+    first_name_one: str
+    first_name_two: Optional[str] = None
+    last_name_one: str
+    last_name_two: str
+    email: EmailStr

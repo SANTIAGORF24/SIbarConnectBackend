@@ -2,9 +2,11 @@ from fastapi import FastAPI
 from core import Settings
 from core.database import Base, engine
 from models.users.user import User
+from models.menu.menu import Menu
 import asyncio
 from routers.user import users
 from routers.auth import auth
+from routers.menu import menu
 
 app = FastAPI(
     title=Settings().app_name
@@ -24,3 +26,4 @@ def read_root():
 
 app.include_router(users.router)
 app.include_router(auth.router)
+app.include_router(menu.router)

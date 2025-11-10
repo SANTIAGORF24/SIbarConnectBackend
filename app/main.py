@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from core import Settings
 from core.database import Base, engine
 from models.users.user import User
@@ -10,6 +11,20 @@ from routers.menu import menu
 
 app = FastAPI(
     title=Settings().app_name
+)
+
+# Configurar CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://v0-app-with-authentication-kappa.vercel.app",
+        "http://localhost:3000",
+        "http://localhost:5173",
+        "http://localhost:8080",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 @app.on_event("startup")
 async def on_startup():

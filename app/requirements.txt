@@ -1,2 +1,10 @@
-pip install python-jose[cryptography]
-pip install passlib[bcrypt]
+fastapi
+uvicorn[standard]
+sqlalchemy
+asyncpg
+pydantic
+pydantic-settings
+python-dotenv
+python-jose[cryptography]
+passlib[bcrypt]
+email-validator

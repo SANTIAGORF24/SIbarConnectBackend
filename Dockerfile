@@ -27,7 +27,8 @@ COPY app/ .
 # Exponer el puerto (Railway lo asignará dinámicamente, pero necesitamos un puerto por defecto)
 EXPOSE 8000
 
-# Comando para ejecutar la aplicación
+# Comando para ejecutar la aplicación con FastAPI
 # Railway proporciona la variable de entorno PORT automáticamente
-CMD sh -c "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"
+# Usamos Python para ejecutar el script start.py que lee PORT correctamente
+CMD ["python", "start.py"]
 

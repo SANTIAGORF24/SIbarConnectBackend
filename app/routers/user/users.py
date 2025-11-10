@@ -16,8 +16,7 @@ router = APIRouter(
 @router.post("/create", response_model= schemas.UserOut, status_code=status.HTTP_201_CREATED) 
 async def create_user(
     user: schemas.UserCreate, 
-    db: AsyncSession = Depends(get_db),
-    current_user: models.User = Depends(get_current_active_user)
+    db: AsyncSession = Depends(get_db)
 ):
     return await servicesuser.create_user_in_bd(user, db)
 
